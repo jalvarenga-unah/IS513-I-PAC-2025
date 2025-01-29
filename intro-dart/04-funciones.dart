@@ -4,10 +4,14 @@ void main() {
   saludar("Enrique");
   final cadena = saludar2("Alvarenga", "Juan");
 
-  final cadena2 = saludar3(apellido: "Rodas", nombre: 'Enrique');
+  final cadena2 = saludar3(
+    apellido: "Rodas",
+    nombre: 'Enrique',
+  );
 
   print(cadena);
   print(cadena2);
+  print(saludar4('Enrique'));
   // saludar(saludar);
 }
 
@@ -29,3 +33,11 @@ String saludar3({
 }) {
   return 'olii $nombre $apellido'; // la ultima linea de la funcion
 }
+
+String saludar4(String? nombre, {String? apellido}) {
+  return 'Hola $nombre ${apellido ?? ''}'; // la ultima linea de la funcion
+}
+
+// cuando la función solamente tiene una instrucción
+String saludar5(String? nombre, {String? apellido}) =>
+    'Hola $nombre ${apellido ?? ''}';

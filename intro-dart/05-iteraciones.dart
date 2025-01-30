@@ -13,7 +13,34 @@ void main() {
   postres.forEach(print);
 
   // función anonima
-  numeros.forEach((int numero) => print(numero * numero));
+  // numeros.forEach((int numero) => print(numero * numero));
+
+  // for (final numero in numeros) {
+  // print(numero);
+  // }
+
+  final pares = numeros.where((numero) {
+    bool resultado = false;
+
+    if (numero % 2 == 0) {
+      resultado = true;
+    }
+
+    return resultado;
+  }).toList();
+
+  final impares = numeros.where((numero) {
+    return numero % 2 != 0;
+  }).toList();
+
+  // print(pares);
+  // print(impares);
+
+  final numeros2 = numeros.map((int numero) {
+    return numero.toDouble();
+  }).toList();
+
+  print(numeros2);
 }
 
 void imprimir(String valor) {

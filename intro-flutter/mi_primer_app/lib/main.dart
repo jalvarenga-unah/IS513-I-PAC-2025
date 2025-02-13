@@ -8,6 +8,12 @@ void main() {
 // 2. Un Widget con estado (StatefulWidget)
 
 class MyApp extends StatelessWidget {
+  final estiloTitulo = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w900,
+    color: Color(0xff242424),
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,9 +22,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Mi primer App',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w900,
+            style: estiloTitulo.copyWith(
               color: Colors.teal[50],
             ),
           ),
@@ -26,7 +30,24 @@ class MyApp extends StatelessWidget {
           centerTitle: false,
         ),
         body: Center(
-          child: Text('Moshi mosh'),
+          // color: Colors.red,
+          // width: double.infinity,
+          // width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Hizo clic en el botón: ',
+                style: estiloTitulo,
+              ),
+              Text(
+                '0 ',
+                style: estiloTitulo,
+              ),
+            ],
+          ),
         ),
       ),
     );

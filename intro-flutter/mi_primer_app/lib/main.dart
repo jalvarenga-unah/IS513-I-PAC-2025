@@ -16,39 +16,73 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('metdo build');
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Mi primer App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Mi primer App',
-            style: estiloTitulo.copyWith(
-              color: Colors.teal[50],
+      home: HomePage(estiloTitulo: estiloTitulo),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  HomePage({
+    super.key,
+    required this.estiloTitulo,
+  });
+
+  final TextStyle estiloTitulo;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int contador = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Mi primer App',
+          style: widget.estiloTitulo.copyWith(
+            color: Colors.teal[50],
+          ),
+        ),
+        backgroundColor: Colors.teal,
+        centerTitle: false,
+      ),
+      body: Center(
+        // color: Colors.red,
+        // width: double.infinity,
+        // width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Hizo clic en el botón: ',
+              style: widget.estiloTitulo,
             ),
-          ),
-          backgroundColor: Colors.teal,
-          centerTitle: false,
+            Text(
+              '$contador',
+              style: widget.estiloTitulo,
+            ),
+          ],
         ),
-        body: Center(
-          // color: Colors.red,
-          // width: double.infinity,
-          // width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Hizo clic en el botón: ',
-                style: estiloTitulo,
-              ),
-              Text(
-                '0 ',
-                style: estiloTitulo,
-              ),
-            ],
-          ),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          print('hizo clic');
+
+          // notifica al estado, que una propiedad cambió
+          // y es necesario redibujar el widget
+          setState(() {});
+          contador++;
+        },
       ),
     );
   }

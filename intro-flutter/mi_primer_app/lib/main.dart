@@ -39,6 +39,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int contador = 0;
+  bool hideButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -73,17 +74,49 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          print('hizo clic');
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      floatingActionButton: hideButton
+          ? Container()
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FloatingActionButton(
+                  child: Icon(Icons.add),
+                  onPressed: () {
+                    print('hizo clic');
 
-          // notifica al estado, que una propiedad cambió
-          // y es necesario redibujar el widget
-          setState(() {});
-          contador++;
-        },
-      ),
+                    // notifica al estado, que una propiedad cambió
+                    // y es necesario redibujar el widget
+                    setState(() {});
+                    contador++;
+
+                    if (contador > 2) {
+                      hideButton = true;
+                      Future.delayed(Duration(seconds: 2), () {
+                        hideButton = false;
+                        setState(() {});
+                      });
+                    }
+                  },
+                ),
+                SizedBox(
+                  // color: Colors.blue,
+                  height: 16,
+                  // width: 1,
+                ),
+                FloatingActionButton(
+                  child: Icon(Icons.exposure_minus_1_rounded),
+                  onPressed: () {
+                    print('hizo clic');
+
+                    // notifica al estado, que una propiedad cambió
+                    // y es necesario redibujar el widget
+                    setState(() {});
+                    contador--;
+                  },
+                ),
+              ],
+            ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redit_clone/src/widgets/side_menu.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,63 +10,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Reddit'),
       ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Container(
-                  color: Colors.red,
-                ),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'olii',
-                style: TextStyle(fontSize: 30),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: SideMenu(),
       body: const Center(
         child: Text('Holaaaaaaaa'),
       ),

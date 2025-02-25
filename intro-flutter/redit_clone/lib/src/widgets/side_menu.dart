@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redit_clone/src/widgets/header_side_menu.dart';
+import 'package:redit_clone/src/widgets/menu_item.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -20,6 +21,22 @@ class SideMenu extends StatelessWidget {
               title: Text('Inicio'),
               onTap: () {},
               // subtitle: Text('Pantalla principal de reseñas'),
+            ),
+            MenuItem(
+              texto: 'Opción 1',
+              icon: Icons.star,
+            ),
+            MenuItem(
+              texto: 'Opción 2',
+              icon: Icons.star,
+            ),
+            MenuItem(
+              texto: 'Opción 3',
+              icon: Icons.star,
+            ),
+            MenuItem(
+              texto: 'Opción 4',
+              icon: Icons.star,
             ),
             ListTile(
               leading: Icon(Icons.people),

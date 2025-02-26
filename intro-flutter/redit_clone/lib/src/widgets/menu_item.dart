@@ -4,11 +4,11 @@ class MenuItem extends StatelessWidget {
   const MenuItem({
     super.key,
     required this.texto,
-    required this.icon,
+    this.icon,
   });
 
   final String texto;
-  final IconData icon;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MenuItem extends StatelessWidget {
         texto,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      leading: Icon(icon),
+      leading: icon != null ? Icon(icon) : null,
     );
   }
 }

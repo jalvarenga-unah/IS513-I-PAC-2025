@@ -36,7 +36,6 @@ class SideMenu extends StatelessWidget {
             ),
             MenuItem(
               texto: 'Opción 4',
-              icon: Icons.star,
             ),
             ListTile(
               leading: Icon(Icons.people),

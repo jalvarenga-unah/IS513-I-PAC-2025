@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ItemList extends StatelessWidget {
   const ItemList({super.key, required this.producto});
@@ -12,6 +13,13 @@ class ItemList extends StatelessWidget {
         onTap: () {
           //navegacion a la pantalla de detalle
           // Navigator
+          context.goNamed(
+            'detalle-producto',
+            pathParameters: {
+              'productoId': producto['id'].toString(),
+            },
+            extra: producto,
+          );
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

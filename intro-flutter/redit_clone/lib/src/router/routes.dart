@@ -5,7 +5,7 @@ import 'package:redit_clone/src/views/home_page.dart';
 import 'package:redit_clone/src/views/login_page.dart';
 
 final router = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/productos',
   routes: [
     GoRoute(
       path: '/productos',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:redit_clone/src/widgets/custom_input.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -23,8 +22,9 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  FlutterLogo(
-                    size: 150,
+                  Image.asset(
+                    './assets/logo/logo-is-2.jpg',
+                    height: 150,
                   ),
                   SizedBox(
                     height: 20,

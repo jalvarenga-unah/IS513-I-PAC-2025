@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -32,11 +33,19 @@ class ItemList extends StatelessWidget {
               //   image: NetworkImage(productos[index]['image']),
               // ),
               Center(
-                child: Image.network(
-                  producto['image'],
-                  height: 150,
-                  fit: BoxFit.fill,
+                child: CachedNetworkImage(
+                  imageUrl: producto['image'],
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Image.asset(
+                    'assets/logo/logo-is.jpg',
+                    height: 150,
+                  ),
                 ),
+                // Image.network(
+                //   producto['image'],
+                //   height: 150,
+                //   fit: BoxFit.fill,
+                // ),
               ),
               Text(
                 _parsedTitle(producto['title']),

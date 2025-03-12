@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redit_clone/src/api/productos.dart';
+import 'package:redit_clone/src/providers/productos_provider.dart';
 import 'package:redit_clone/src/widgets/item_list.dart';
 import 'package:redit_clone/src/widgets/side_menu.dart';
 
@@ -92,17 +92,45 @@ class PerfilFragment extends StatelessWidget {
 }
 
 class ProductosFragment extends StatelessWidget {
-  const ProductosFragment({
+  ProductosFragment({
     super.key,
   });
 
+  final productosProvider = ProductosProvider();
+
   @override
   Widget build(BuildContext context) {
+    // productosProvider.getProducts(); // ! ❌ NO SE DEBE HACER AQUI
     print('Creando productos fragment');
-    return ListView.builder(
-      itemCount: productos.length,
-      itemBuilder: (BuildContext context, int index) {
-        return ItemList(producto: productos[index]);
+    return FutureBuilder(
+      future: productosProvider.getProducts(),
+      builder: (context, asyncSnapshot) {
+        if (asyncSnapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (asyncSnapshot.hasError) {
+          return Center(
+            child: Text('Error: ${asyncSnapshot.error}'),
+          );
+        }
+
+        if (!asyncSnapshot.hasData) {
+          return Center(
+            child: Text('No hay datos'),
+          );
+        }
+
+        final productos = asyncSnapshot.data!;
+
+        return ListView.builder(
+          itemCount: productos.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ItemList(producto: productos[index]);
+          },
+        );
       },
     );
   }

@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:redit_clone/src/models/producto.dart';
 
 class ItemList extends StatelessWidget {
   const ItemList({super.key, required this.producto});
 
-  final Map<String, dynamic> producto;
+  final Producto producto;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class ItemList extends StatelessWidget {
           context.goNamed(
             'detalle-producto',
             pathParameters: {
-              'productoId': producto['id'].toString(),
+              'productoId': producto.id.toString(),
             },
             extra: producto,
           );
@@ -34,7 +35,7 @@ class ItemList extends StatelessWidget {
               // ),
               Center(
                 child: CachedNetworkImage(
-                  imageUrl: producto['image'],
+                  imageUrl: producto.image,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Image.asset(
                     'assets/logo/logo-is.jpg',
@@ -48,14 +49,14 @@ class ItemList extends StatelessWidget {
                 // ),
               ),
               Text(
-                _parsedTitle(producto['title']),
+                _parsedTitle(producto.title),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                'USD${producto['price']}',
+                'USD${producto.price}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redit_clone/src/models/producto.dart';
 import 'package:redit_clone/src/providers/productos_provider.dart';
 import 'package:redit_clone/src/widgets/item_list.dart';
 import 'package:redit_clone/src/widgets/side_menu.dart';
@@ -123,7 +124,7 @@ class ProductosFragment extends StatelessWidget {
           );
         }
 
-        final productos = asyncSnapshot.data!;
+        final List<Producto> productos = asyncSnapshot.data!;
 
         return ListView.builder(
           itemCount: productos.length,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:redit_clone/src/models/producto.dart';
 import 'package:redit_clone/src/views/detalle_producto_page.dart';
 import 'package:redit_clone/src/views/home_page.dart';
 import 'package:redit_clone/src/views/login_page.dart';
@@ -18,12 +19,12 @@ final router = GoRouter(
           builder: (BuildContext context, GoRouterState settings) {
             final id = settings.pathParameters['productoId'];
 
-            final extras = settings.extra as Map;
+            final extras = settings.extra as Producto;
             print(extras);
 
             return DetalleProductoPage(
               id: '$id',
-              extras: extras,
+              producto: extras,
             );
           },
         )

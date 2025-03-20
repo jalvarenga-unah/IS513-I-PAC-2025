@@ -105,16 +105,34 @@ class ProductosFragment extends StatelessWidget {
     print('Creando productos fragment');
     return FutureBuilder(
       future: productosProvider.getProducts(),
-      builder: (context, asyncSnapshot) {
+      builder: (context, AsyncSnapshot<List<Producto>> asyncSnapshot) {
+        //asyncSnapshot => contiene la informacion de la peticion
         if (asyncSnapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(
+              'Cargando...',
+              style: TextStyle(
+                fontSize: 50,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           );
         }
 
         if (asyncSnapshot.hasError) {
           return Center(
-            child: Text('Error: ${asyncSnapshot.error}'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.signal_wifi_connected_no_internet_4_sharp,
+                  size: 100,
+                ),
+                Text('Error al obtener los datos'),
+                ElevatedButton(onPressed: () {}, child: Text('refrescar'))
+              ],
+            ),
           );
         }
 

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app/pelicula.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,10 +14,17 @@ class HomePage extends StatelessWidget {
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('movies')
+              .withConverter<Pelicula>(
+                  fromFirestore: (snapshot, _) {
+                    final data = snapshot.data()!;
+                    data['id'] = snapshot.id; //id del documento
+
+                    return Pelicula.fromJson(data);
+                  },
+                  toFirestore: (pelicula, _) => pelicula.toFirestoreDataBase())
               .orderBy('createdAt', descending: true)
               .snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          builder: (context, AsyncSnapshot<QuerySnapshot<Pelicula>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
@@ -31,12 +39,17 @@ class HomePage extends StatelessWidget {
                     snapshot.error.toString()),
               );
             }
+            final movies = snapshot.data!.docs
+                .map(
+                  (doc) => doc.data(),
+                )
+                .toList();
 
-            final movies = List<Map<String, dynamic>>.from(
-              snapshot.data!.docs.map(
-                (doc) => doc.data(),
-              ),
-            );
+            // final movies = List<Map<String, dynamic>>.from(
+            //   snapshot.data!.docs.map(
+            //     (doc) => doc.data(),
+            //   ),
+            // );
 
             if (movies.isEmpty) {
               return Center(
@@ -48,10 +61,22 @@ class HomePage extends StatelessWidget {
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
                   final movie = movies[index];
+                  print(movie.id);
 
-                  return ListTile(
-                    title: Text(movie['title']),
-                    subtitle: Text(movie['director']),
+                  return Dismissible(
+                    secondaryBackground: Container(
+                      color: Colors.green,
+                      child: const Icon(Icons.edit),
+                    ),
+                    background: Container(
+                      color: Colors.red,
+                      child: const Icon(Icons.delete),
+                    ),
+                    key: Key(movie.id!),
+                    child: ListTile(
+                      title: Text(movie.title),
+                      subtitle: Text(movie.director),
+                    ),
                   );
                 });
           }),

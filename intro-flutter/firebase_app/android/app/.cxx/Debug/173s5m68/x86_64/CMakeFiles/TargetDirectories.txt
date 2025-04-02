@@ -1,0 +1,2 @@
+/Users/juanalvarenga/Documents/Clases UNAH-VS/2025-1/Lenguajes de programacion/IS513-I-PAC-2025/intro-flutter/firebase_app/android/app/.cxx/Debug/173s5m68/x86_64/CMakeFiles/edit_cache.dir
+/Users/juanalvarenga/Documents/Clases UNAH-VS/2025-1/Lenguajes de programacion/IS513-I-PAC-2025/intro-flutter/firebase_app/android/app/.cxx/Debug/173s5m68/x86_64/CMakeFiles/rebuild_cache.dir

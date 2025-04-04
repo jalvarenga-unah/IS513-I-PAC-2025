@@ -1,5 +1,6 @@
 import 'package:firebase_app/create_movie_page.dart';
 import 'package:firebase_app/home_page.dart';
+import 'package:firebase_app/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/create_movie': (context) => CreateMoviePage(),
+        '/login': (context) => LoginPage()
       },
     );
   }

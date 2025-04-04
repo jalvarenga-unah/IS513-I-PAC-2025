@@ -1,15 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/pelicula.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        if (!context.mounted) return;
+        Navigator.of(context).pushReplacementNamed('/login');
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Firebase App'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut(); //cierran sesion
+                Navigator.of(context).pushReplacementNamed('/login');
+              },
+              icon: Icon(Icons.exit_to_app))
+        ],
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -32,6 +60,12 @@ class HomePage extends StatelessWidget {
             }
 
             print(snapshot.data);
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ' + snapshot.error.toString()),
+              );
+            }
 
             if (!snapshot.hasData) {
               return Center(

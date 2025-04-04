@@ -7,6 +7,9 @@ import 'package:redit_clone/src/views/login_page.dart';
 
 final router = GoRouter(
   initialLocation: '/productos',
+  redirect: (context, state) {
+    //validar si el usuario esta logueado y si la ruta es diferente a login
+  },
   routes: [
     GoRoute(
       path: '/productos',

@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart'
     show FirebaseMessaging;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome;
 import 'firebase_options.dart';
 
 // void main() => runApp(const MyApp());
@@ -19,6 +20,15 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //? BLOQUEAR LA ORIENTACION DE LA PANTALLA
+
+  //portrait: vertical
+  //landscape: horizontal
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp, // vertical hacia arriba
+    DeviceOrientation.portraitDown, // vertical hacia abajo
+  ]);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

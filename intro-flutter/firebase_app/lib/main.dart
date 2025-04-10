@@ -1,6 +1,8 @@
 import 'package:firebase_app/create_movie_page.dart';
 import 'package:firebase_app/home_page.dart';
 import 'package:firebase_app/login_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart'
+    show FirebaseMessaging;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,21 +24,21 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  // messaging
-  //     .requestPermission(
-  //   alert: true,
-  //   announcement: false,
-  //   badge: true,
-  //   carPlay: false,
-  //   criticalAlert: false,
-  //   provisional: false,
-  //   sound: true,
-  // )
-  //     .then((settings) {
-  //   print('User granted permission: ${settings.authorizationStatus}');
-  // });
+  messaging
+      .requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  )
+      .then((settings) {
+    print('User granted permission: ${settings.authorizationStatus}');
+  });
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

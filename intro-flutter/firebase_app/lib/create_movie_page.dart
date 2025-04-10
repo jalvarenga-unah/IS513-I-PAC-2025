@@ -1,13 +1,27 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/pelicula.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class CreateMoviePage extends StatelessWidget {
-  CreateMoviePage({super.key});
+class CreateMoviePage extends StatefulWidget {
+  const CreateMoviePage({super.key});
 
+  @override
+  State<CreateMoviePage> createState() => _CreateMoviePageState();
+}
+
+class _CreateMoviePageState extends State<CreateMoviePage> {
   final title = TextEditingController(text: 'Nueva pelicula');
+
   final director = TextEditingController(text: 'prueba');
+
   final anio = TextEditingController(text: 2025.toString());
+
+  File? fileToUpload;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +53,31 @@ class CreateMoviePage extends StatelessWidget {
                   labelText: 'Año',
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final picker = ImagePicker();
+
+                  final file =
+                      await picker.pickImage(source: ImageSource.gallery);
+
+                  if (file == null) return;
+
+                  // final name = file.name;
+                  final path = file.path;
+
+                  fileToUpload = File(path);
+                  setState(() {});
+                  // final url = await mountainsRef.getDownloadURL();
+                },
+                child: Text('Subir foto portada'),
+              ),
+              if (fileToUpload != null)
+                Image(
+                  image: FileImage(fileToUpload!),
+                )
             ],
           ),
         ),
@@ -52,12 +91,20 @@ class CreateMoviePage extends StatelessWidget {
           //   'createdAt': DateTime.now(), //timestamp
           // };
 
+          final storageRef = FirebaseStorage.instance.ref(); //bucket
+          final fileRef = storageRef.child(
+              '${FirebaseAuth.instance.currentUser!.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+          await fileRef.putFile(fileToUpload!);
+
+          final url = await fileRef.getDownloadURL();
+
           Pelicula data = Pelicula(
-            title: title.text,
-            director: director.text,
-            anio: int.parse(anio.text),
-            createdAt: DateTime.now(),
-          );
+              title: title.text,
+              director: director.text,
+              anio: int.parse(anio.text),
+              createdAt: DateTime.now(),
+              posterImage: url);
 
           final newDoc = await FirebaseFirestore.instance
               .collection('movies')

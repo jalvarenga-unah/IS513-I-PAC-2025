@@ -4,12 +4,14 @@ class Pelicula {
   String? id;
   String title;
   String director;
+  String? posterImage;
   int anio;
   DateTime createdAt;
 
   Pelicula({
     this.id,
     required this.title,
+    this.posterImage,
     required this.director,
     required this.anio,
     required this.createdAt,
@@ -19,6 +21,7 @@ class Pelicula {
     return Pelicula(
       id: json['id'],
       title: json['title'],
+      posterImage: json['posterImage'],
       director: json['director'],
       anio: json['anio'],
       createdAt: (json['createdAt'] as Timestamp).toDate(),
@@ -31,6 +34,7 @@ class Pelicula {
       'director': director,
       'anio': anio,
       'createdAt': createdAt,
+      'posterImage': posterImage,
     };
   }
 }
